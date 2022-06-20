@@ -1,0 +1,87 @@
+{
+  "DiskProvisioning": "flat",
+  "IPAllocationPolicy": "fixedPolicy",
+  "IPProtocol": "IPv4",
+  "PropertyMapping": [
+    {
+      "Key": "guestinfo.hostname",
+      "Value": "tcedemo.lab.why-did-it.fail"
+    },
+    {
+      "Key": "guestinfo.ipaddress",
+      "Value": "172.20.3.100"
+    },
+    {
+      "Key": "guestinfo.netmask",
+      "Value": "24 (255.255.255.0)"
+    },
+    {
+      "Key": "guestinfo.gateway",
+      "Value": "172.20.3.1"
+    },
+    {
+      "Key": "guestinfo.dns",
+      "Value": "172.20.2.254"
+    },
+    {
+      "Key": "guestinfo.domain",
+      "Value": "lab.why-did-it.fail"
+    },
+    {
+      "Key": "guestinfo.ntp",
+      "Value": "pool.ntp.org"
+    },
+    {
+      "Key": "guestinfo.root_password",
+      "Value": "cubeLAB02!"
+    },
+    {
+      "Key": "guestinfo.root_ssh_key",
+      "Value": ""
+    },
+    {
+      "Key": "guestinfo.http_proxy",
+      "Value": ""
+    },
+    {
+      "Key": "guestinfo.https_proxy",
+      "Value": ""
+    },
+    {
+      "Key": "guestinfo.proxy_username",
+      "Value": ""
+    },
+    {
+      "Key": "guestinfo.proxy_password",
+      "Value": ""
+    },
+    {
+      "Key": "guestinfo.no_proxy",
+      "Value": ""
+    },
+    {
+      "Key": "guestinfo.debug",
+      "Value": "True"
+    },
+    {
+      "Key": "guestinfo.docker_network_cidr",
+      "Value": "172.17.0.1/16"
+    },
+    {
+      "Key": "guestinfo.tanzu_installer_port",
+      "Value": "5555"
+    }
+  ],
+  "NetworkMapping": [
+    {
+      "Name": "pg-dvs-01-vlan201-172_20_1_0_24-dhcp",
+      "Network": "pg-dvs-01-vlan203-172_20_3_0_24-static"
+    }
+  ],
+  "Annotation": "Appliance serving Tanzu Community Edition version: v0.12.1",
+  "MarkAsTemplate": false,
+  "PowerOn": true,
+  "InjectOvfEnv": true,
+  "WaitForIP": false,
+  "Name": "TCE_Demo_Appliance_testrun"
+}

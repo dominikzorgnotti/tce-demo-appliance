@@ -1,0 +1,7 @@
+packer_cache/
+output-vsphere-iso/
+dist/
+.vscode
+username
+password
+secret*.json
