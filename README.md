@@ -1,3 +1,11 @@
-# tce-demo-appliance
-# tce-demo-appliance
-# tce-demo-appliance
+# Demo Appliance for Tanzu Community Edition
+
+## Summary
+
+A Virtual Appliance that pre-bundles all required dependencies to help customers in learning and deploying Tanzu Community Edition (TCE) clusters running on either VMware Cloud on AWS and/or vSphere 7.0+ environment for Proof of Concept, Demo and Dev/Test purposes.
+
+This appliance will enable you to quickly go from zero to Kubernetes in less than 1hr with just an SSH client and a web browser!
+
+## What's Included:
+- Tanzu Kubernetes Grid (TKG) CLI
+- Kubectl CLI
