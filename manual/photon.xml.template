@@ -7,7 +7,7 @@
     <ProductUrl>https://tanzucommunityedition.io/</ProductUrl>
     <VendorUrl>https://vmware.com/</VendorUrl>
     <Category>Networking</Category>
-    <Property ovf:key="guestinfo.hostname" ovf:type="string" ovf:userConfigurable="true" ovf:value="tcedemo.vmware.corp">
+    <Property ovf:key="guestinfo.hostname" ovf:type="string" ovf:qualifiers="MinLen(4),MaxLen(256)" ovf:userConfigurable="true" ovf:value="tcedemo.vmware.corp">
         <Label>Hostname</Label>
         <Description>Hostname of system</Description>
     </Property>
@@ -25,7 +25,7 @@
     </Property>
     <Property ovf:key="guestinfo.dns" ovf:type="string" ovf:userConfigurable="true" ovf:value="8.8.8.8">
         <Label>DNS</Label>
-        <Description>DNS Servers (space separated)</Description>
+        <Description>DNS Servers (space separated, will be ignored for DHCP)</Description>
     </Property>
     <Property ovf:key="guestinfo.domain" ovf:type="string" ovf:userConfigurable="true" ovf:value="vmware.corp">
         <Label>DNS Domain</Label>
@@ -36,7 +36,7 @@
         <Description>NTP Servers (space separated)</Description>
     </Property>
     <Category>OS Credentials</Category>
-    <Property ovf:key="guestinfo.root_password" ovf:password="true" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+    <Property ovf:key="guestinfo.root_password" ovf:qualifiers="MinLen(4),MaxLen(64)" ovf:password="true" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
         <Label>Root Password</Label>
         <Description>Password to login in as root. Please use a secure password</Description>
     </Property>

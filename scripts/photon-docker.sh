@@ -7,11 +7,6 @@
 ## Enable Docker
 ##
 
-cat > /etc/docker/daemon.json << __CUSTOMIZE_PHOTON__
-{
-  "ipv6": false
-}
-__CUSTOMIZE_PHOTON__
 
 echo '> Enabling Docker...'
 systemctl enable docker

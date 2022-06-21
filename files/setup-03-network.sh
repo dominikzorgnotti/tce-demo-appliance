@@ -6,9 +6,11 @@
 
 set -euo pipefail
 
-echo -e "\e[92mConfiguring Static IP Address ..." > /dev/console
 
 NETWORK_CONFIG_FILE=$(ls /etc/systemd/network | grep .network)
+
+if [ ! -z "${IP_ADDRESS}" ]; then
+echo -e "\e[92mConfiguring Static IP Address ..." > /dev/console
 cat > /etc/systemd/network/${NETWORK_CONFIG_FILE} << __CUSTOMIZE_PHOTON__
 [Match]
 Name=e*
@@ -20,6 +22,20 @@ DNS=${DNS_SERVER}
 Domain=${DNS_DOMAIN}
 LinkLocalAddressing=no
 __CUSTOMIZE_PHOTON__
+else
+echo -e "\e[92mConfiguring DHCP ..." > /dev/console
+cat > /etc/systemd/network/${NETWORK_CONFIG_FILE} << __CUSTOMIZE_PHOTON__
+[Match]
+Name=e*
+
+[Network]
+DHCP=yes  
+
+[DHCP]
+UseDNS=true
+__CUSTOMIZE_PHOTON__
+fi
+
 
 echo -e "\e[92mConfiguring NTP ..." > /dev/console
 cat > /etc/systemd/timesyncd.conf << __CUSTOMIZE_PHOTON__

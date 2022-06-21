@@ -16,9 +16,9 @@ systemctl stop docker
 echo -e "\e[92mConfiguring OS Root password ..." > /dev/console
 echo "root:${ROOT_PASSWORD}" | /usr/sbin/chpasswd
 
+echo -e "\e[92mConfiguring Docker Network ..." > /dev/console
 if [ "${DOCKER_NETWORK_CIDR}" != "172.17.0.1/16" ]; then
-    echo -e "\e[92mConfiguring Docker Bridge Network ..." > /dev/console
-    cat > /etc/docker/daemon.json << EOF
+    cat > /etc/docker/daemon.json << __CUSTOMIZE_PHOTON__
 {
     "bip": "${DOCKER_NETWORK_CIDR}",
     "ipv6": false,
@@ -27,5 +27,18 @@ if [ "${DOCKER_NETWORK_CIDR}" != "172.17.0.1/16" ]; then
        "max-file": "5"
     }
 }
-EOF
+__CUSTOMIZE_PHOTON__
+else
+    cat > /etc/docker/daemon.json << __CUSTOMIZE_PHOTON__
+{
+    "ipv6": false,
+    "log-opts": {
+       "max-size": "10m",
+       "max-file": "5"
+    }
+}
+__CUSTOMIZE_PHOTON__
 fi
+# Restart docker
+echo -e "\e[92mRestarting Docker ..." > /dev/console
+systemctl restart docker

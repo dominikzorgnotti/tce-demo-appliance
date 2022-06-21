@@ -145,11 +145,6 @@
       "destination": "/etc/motd",
       "source": "files/motd",
       "type": "file"
-    },
-    {
-      "destination": "/root/open_source_license.txt",
-      "source": "files/open_source_license.txt",
-      "type": "file"
     }
   ],
   "variables": {
