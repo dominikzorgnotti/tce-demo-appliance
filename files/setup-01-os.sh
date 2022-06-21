@@ -21,6 +21,7 @@ if [ "${DOCKER_NETWORK_CIDR}" != "172.17.0.1/16" ]; then
     cat > /etc/docker/daemon.json << EOF
 {
     "bip": "${DOCKER_NETWORK_CIDR}",
+    "ipv6": false,
     "log-opts": {
        "max-size": "10m",
        "max-file": "5"

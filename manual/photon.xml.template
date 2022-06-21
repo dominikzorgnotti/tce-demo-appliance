@@ -1,5 +1,6 @@
 <ProductSection ovf:required="true">
-    <Info>Demo appliance to launch the Tanzu Community Edition bootstrap installer</Info>
+    <Info>Demo appliance to launch the Tanzu Community Edition bootstrap installer.
+    The TCE Web Installer UI will be served on the port specified as Tanzu Installer Port (default: 5555).</Info>
     <Product>Demo Appliance for Tanzu Community Edition (TCE)</Product>
     <Vendor>VMware</Vendor>
     <Version>{{VERSION}}</Version>
