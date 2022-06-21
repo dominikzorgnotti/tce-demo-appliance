@@ -54,7 +54,7 @@
       "environment_vars": [
         "PHOTON_VERSION={{ user `version` }}",
         "PHOTON_APPLIANCE_NAME={{ user `vm_name` }}",
-        "FINAL_PHOTON_APPLIANCE_NAME={{ user `vm_name` }}-{{user `version`}}",
+        "FINAL_PHOTON_APPLIANCE_NAME={{ user `vm_name` }}-{{user `version`}}{{user `gitcommit`}}",
         "PHOTON_OVF_TEMPLATE={{ user `photon_ovf_template` }}"
       ],
       "inline": [
