@@ -9,3 +9,7 @@ This appliance will enable you to quickly go from zero to Kubernetes in less tha
 ## What's Included:
 - Tanzu CLI
 - Kubectl
+
+## Good to know
+
+- Once you select DHCP, the appliance will use the DHCP specified DNS server and ignore any values provided in the input field during deployment

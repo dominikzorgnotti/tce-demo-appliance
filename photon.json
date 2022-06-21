@@ -35,9 +35,11 @@
       "ssh_password": "{{ user `guest_password` }}",
       "ssh_port": 22,
       "ssh_username": "{{ user `guest_username` }}",
+      "disk_controller_type": "nvme",
       "storage": [
         {
-          "disk_size": "15000"
+          "disk_size": "15000",
+          "disk_thin_provisioned": true
         }
       ],
       "type": "vsphere-iso",
@@ -54,7 +56,7 @@
       "environment_vars": [
         "PHOTON_VERSION={{ user `version` }}",
         "PHOTON_APPLIANCE_NAME={{ user `vm_name` }}",
-        "FINAL_PHOTON_APPLIANCE_NAME={{ user `vm_name` }}-{{user `version`}}",
+        "FINAL_PHOTON_APPLIANCE_NAME={{ user `vm_name` }}-{{user `version`}}{{user `gitcommit`}}",
         "PHOTON_OVF_TEMPLATE={{ user `photon_ovf_template` }}"
       ],
       "inline": [
