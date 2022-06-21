@@ -29,7 +29,8 @@ cat > /etc/systemd/network/${NETWORK_CONFIG_FILE} << __CUSTOMIZE_PHOTON__
 Name=e*
 
 [Network]
-DHCP=yes  
+DHCP=yes
+LinkLocalAddressing=no
 
 [DHCP]
 UseDNS=true

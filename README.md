@@ -7,5 +7,9 @@ A Virtual Appliance that pre-bundles all required dependencies to help customers
 This appliance will enable you to quickly go from zero to Kubernetes in less than 1hr with just an SSH client and a web browser!
 
 ## What's Included:
-- Tanzu Kubernetes Grid (TKG) CLI
-- Kubectl CLI
+- Tanzu CLI
+- Kubectl
+
+## Good to know
+
+- Once you select DHCP, the appliance will use the DHCP specified DNS server and ignore any values provided in the input field during deployment

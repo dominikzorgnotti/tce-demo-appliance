@@ -11,4 +11,5 @@
 - Switched to getOvfProperty.py to read OVF specs in the appliance and deprecated guest tool queries
 - Removed IPv6 disable setting per Photon docs (https://vmware.github.io/photon/docs/troubleshooting-guide/photon-os-general-troubleshooting/network-configuration/)
 - Instead used LinkLocal=no on eth0 to avoid an IPv6 address
+- Updated network config to explicitly deploy a DHCP config if no static IP is specified (TY Erik)
 - Disabled IPv6 support for docker daemon
