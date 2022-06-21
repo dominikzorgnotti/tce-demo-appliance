@@ -5,7 +5,7 @@
             "crypted": false,
             "text": "cubeLAB01!"
         },
-    "disk": "/dev/sda",
+    "disk": "/dev/nvme0n1",
     "packagelist_file": "packages_minimal.json",
     "install_linux_esx": true,
     "postinstall": [
