@@ -35,6 +35,7 @@
       "ssh_password": "{{ user `guest_password` }}",
       "ssh_port": 22,
       "ssh_username": "{{ user `guest_username` }}",
+      "firmware": "efi",
       "disk_controller_type": "nvme",
       "storage": [
         {
