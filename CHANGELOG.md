@@ -18,3 +18,4 @@
 - Updated network config to explicitly deploy a DHCP config if no static IP is specified (TY Erik)
 - Disabled IPv6 support for docker daemon
 - Added Debug build option that includes the current Git Hash in the OVA name for cross-reference
+- Switched VM Firmware to UEFI
