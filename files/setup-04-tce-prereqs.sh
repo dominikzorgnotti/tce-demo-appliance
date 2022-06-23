@@ -48,7 +48,7 @@ After=syslog.target network.target auditd.service systemd-journald.socket basic.
 Type=idle
 Environment="HOME=/root"
 Restart=on-failure
-ExecStart=/usr/local/bin/tanzu management-cluster create --ui --bind 127.0.0.1:1999 --browser none
+ExecStart=/usr/local/bin/tanzu management-cluster create --ui --bind 0.0.0.0:$TANZU_INSTALLER_PORT --browser none
 
 [Install]
 WantedBy=multi-user.target
@@ -141,11 +141,12 @@ http {
       ssl_certificate_key  /etc/ssl/private/tce-demo-nginx.key;
       ssl_prefer_server_ciphers on;
       location / {
-          proxy_pass http://localhost:1999;
+          proxy_pass XXXX;
           proxy_buffering off;
           proxy_cache_bypass	$http_upgrade;
           proxy_set_header Upgrade	$http_upgrade;
           proxy_set_header Connection	“upgrade”;
+          proxy_http_version 1.1;
           proxy_set_header Host	$host;
           proxy_set_header X-Real-IP	$remote_addr;
           proxy_set_header X-Forwarded-For	$proxy_add_x_forwarded_for;
@@ -158,8 +159,8 @@ http {
 __CUSTOMIZE_PHOTON__
 
 # Doing an extra sed call as the above here doc needs to preserve variables
-sed -i -e 's/listen XXXX;/listen '"$TANZU_INSTALLER_PORT"' ssl;/' /etc/nginx/nginx.conf
-
+sed -i -e 's/listen XXXX;/listen '"$TANZU_INSTALLER_SECURE_PORT"' ssl;/' /etc/nginx/nginx.conf
+sed -i -e 's/proxy_pass XXXX;/proxy_pass 127.0.0.1:'"$TANZU_INSTALLER_PORT"';/' /etc/nginx/nginx.conf
 
 echo '\e[92mActivating Reverse Proxy service...' > /dev/console
 systemctl enable nginx

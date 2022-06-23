@@ -78,4 +78,8 @@
         <Label>Tanzu Installer Port</Label>
         <Description>Customize port for the Tanzu installer web interface (Default 5555, allowed 2000-10000)</Description>
     </Property>
+    <Property ovf:key="guestinfo.tanzu_installer_secure_port" ovf:type="int" ovf:qualifiers="MinValue(2000) MaxValue(10000)" ovf:userConfigurable="true" ovf:value="5556">
+        <Label>Tanzu Installer Secure Port</Label>
+        <Description>Customize port for the Tanzu installer web interface via SSL (Default 5556, allowed 2000-10000)</Description>
+    </Property>
 </ProductSection>
