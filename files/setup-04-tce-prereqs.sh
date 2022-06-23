@@ -157,7 +157,7 @@ sed -i -e 's/listen XXXX;/listen '"$TANZU_INSTALLER_PORT"' ssl;/' /etc/nginx/ngi
 
 echo '\e[92mActivating Reverse Proxy service...' > /dev/console
 systemctl enable nginx
-systemctl start nginx
+systemctl restart nginx
 
 
 # End of Script
