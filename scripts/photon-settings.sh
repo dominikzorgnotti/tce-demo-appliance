@@ -28,7 +28,8 @@ tdnf install -y \
   awk \
   tar \
   jq \
-  sshpass
+  sshpass \
+  nginx
 
 echo '> Adding K8s Repo'
 curl -L https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg -o /etc/pki/rpm-gpg/GOOGLE-RPM-GPG-KEY
