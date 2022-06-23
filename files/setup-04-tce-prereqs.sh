@@ -13,9 +13,14 @@ systemctl daemon-reload
 systemctl start docker.service
 systemctl enable docker.service
 
-echo -e "\e[92mDisabling/Stopping IP Tables  ..." > /dev/console
-systemctl stop iptables
-systemctl disable iptables
+echo -e "\e[92mSwitching IP Tables default policies  ..." > /dev/console
+#systemctl stop iptables
+#systemctl disable iptables
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables-save
+
 
 echo '\e[92mSwitching Working Directory...' > /dev/console
 cd /root/setup
@@ -57,7 +62,8 @@ systemctl start tanzu-bootstrap.service
 
 
 echo '\e[92mSetting up SSL certs...' > /dev/console
-# Self signed CA and certs
+# Going down with traditional RSA based keys for backwards compatibulity
+
 IP_ETH0=$(ip -o -4 a | awk '$2 == "eth0" { gsub(/\/.*/, "", $4); print $4 }')
 
 cat > /root/setup/openssl-ca.cnf << __CUSTOMIZE_PHOTON__
