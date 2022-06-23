@@ -17,9 +17,8 @@ echo -e "\e[92mSwitching IP Tables default policies  ..." > /dev/console
 #systemctl stop iptables
 #systemctl disable iptables
 iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
 iptables -P OUTPUT ACCEPT
-iptables-save
+iptables-save >/etc/systemd/scripts/ip4save
 
 
 echo '\e[92mSwitching Working Directory...' > /dev/console
@@ -160,7 +159,7 @@ __CUSTOMIZE_PHOTON__
 
 # Doing an extra sed call as the above here doc needs to preserve variables
 sed -i -e 's/listen XXXX;/listen '"$TANZU_INSTALLER_SECURE_PORT"' ssl;/' /etc/nginx/nginx.conf
-sed -i -e 's/proxy_pass XXXX;/proxy_pass http://127.0.0.1:'"$TANZU_INSTALLER_PORT"';/' /etc/nginx/nginx.conf
+sed -i -e 's/proxy_pass XXXX;/proxy_pass http:\/\/127.0.0.1:'"$TANZU_INSTALLER_PORT"';/' /etc/nginx/nginx.conf
 
 echo '\e[92mActivating Reverse Proxy service...' > /dev/console
 systemctl enable nginx

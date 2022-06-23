@@ -12,6 +12,7 @@ This appliance will enable you to quickly go from zero to Kubernetes in less tha
 
 ## Good to know
 
+- After the initial deployment of the appliance, the installer will continue to run for one or two minutes.
 - Once you select DHCP, the appliance will use the DHCP specified DNS server and ignore any values provided in the input field during deployment
 
 ## Known Issues
