@@ -13,3 +13,9 @@ This appliance will enable you to quickly go from zero to Kubernetes in less tha
 ## Good to know
 
 - Once you select DHCP, the appliance will use the DHCP specified DNS server and ignore any values provided in the input field during deployment
+
+## Known Issues
+
+### Blank log output
+When launching the installation process over the secure port, the log output in the Web browser is blank but the installation will continue in the background.  
+Workaround: You can monitor the progress from the shell (for instance via SSH) by using journalctl -fl
