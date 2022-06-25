@@ -46,8 +46,12 @@ After=syslog.target network.target auditd.service systemd-journald.socket basic.
 [Service]
 Type=idle
 Environment="HOME=/root"
-Restart=on-failure
-ExecStart=/usr/local/bin/tanzu management-cluster create --ui --bind 0.0.0.0:$TANZU_INSTALLER_PORT --browser none
+Restart=always
+TimeoutStartSec=1min
+RestartSec=1min
+ExecStart=/usr/local/bin/tanzu management-cluster create --ui --bind 0.0.0.0:$TANZU_INSTALLER_PORT --browser none --timeout 24h
+StandardOutput=append:/var/log/tanzu-ce.log
+StandardError=inherit
 
 [Install]
 WantedBy=multi-user.target
