@@ -128,10 +128,10 @@ events {
 }
 
 http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    keepalive_timeout  65;
+    #include       mime.types;
+    #default_type  application/octet-stream;
+    #sendfile        on;
+    #keepalive_timeout  65;
 
     server {
       listen XXXX;
@@ -141,17 +141,17 @@ http {
       ssl_prefer_server_ciphers on;
       location / {
           proxy_pass XXXX;
+          proxy_bind 127.0.0.1;
           proxy_buffering off;
-          proxy_cache_bypass	$http_upgrade;
-          proxy_set_header Upgrade	$http_upgrade;
-          proxy_set_header Connection	“upgrade”;
           proxy_http_version 1.1;
-          proxy_set_header Host	$host;
-          proxy_set_header X-Real-IP	$remote_addr;
-          proxy_set_header X-Forwarded-For	$proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto	$scheme;
-          proxy_set_header X-Forwarded-Host	$host;
-          proxy_set_header X-Forwarded-Port	$server_port;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+          proxy_set_header Host $host;
+ #         proxy_set_header X-Real-IP	$remote_addr;
+ #         proxy_set_header X-Forwarded-For	$proxy_add_x_forwarded_for;
+ #         proxy_set_header X-Forwarded-Proto	$scheme;
+ #         proxy_set_header X-Forwarded-Host	$host;
+ #         proxy_set_header X-Forwarded-Port	$server_port;
       }
     }
 }
