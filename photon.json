@@ -44,7 +44,7 @@
       "disk_controller_type": "nvme",
       "storage": [
         {
-          "disk_size": "15000",
+          "disk_size": "20480",
           "disk_thin_provisioned": true
         }
       ],

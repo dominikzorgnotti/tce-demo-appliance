@@ -3,7 +3,7 @@
 ## v0.12.1
 - Initial Release based on the TKG demo appliance of @wlam
 - Switched packer builder from VMware-ISO to vSphere-ISO per [suggestion](https://discuss.hashicorp.com/t/vmware-iso-vsphere-iso-with-questions/29851/2)
-- Trimmed disk size to 15GB
+- Trimmed disk size to 20GB
 - Disk type is now thin provisioned
 - Disk Controller switched to NVMe
 - Switched cleanup space reclamation from dd to fstrim per [suggestion](https://ext4.wiki.kernel.org/index.php/Ext4_VM_Images)
