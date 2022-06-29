@@ -27,10 +27,12 @@ The appliance cannot provide the specific prerequisites in your target environme
 
 - After the initial deployment of the appliance, the installer will continue to run for one or two minutes. After the reverse proxy activiation the appliance is ready.
 - Once you select DHCP, the appliance will use the DHCP specified DNS server and ignore any values provided in the input field during deployment
+- When you deploy a succesfully deploy a cluster, the tanzu installer process with exit. If you want to deploy another cluster, you need to restart the service on the appliance or reboot the appliance.
 
 ## Known Issues
 
 ### Blank log output
-When launching the installation process over the secure port, the log output in the Web browser is blank but the installation will continue in the background.  
+When launching the installation process over the secure port, the log output in the Web browser is blank but the installation will continue in the background.
+Cause: The logs are shown using websockets which currently does not work when being tunneled through https  
 Workaround: You can monitor the progress from the shell (for instance via SSH) by using journalctl -fl or use the non-secure port to view the output.
 

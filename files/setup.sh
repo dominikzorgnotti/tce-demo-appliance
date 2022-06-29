@@ -24,6 +24,7 @@ ROOT_SSH_KEY=$(/root/setup/getOvfProperty.py "guestinfo.root_ssh_key")
 DOCKER_NETWORK_CIDR=$(/root/setup/getOvfProperty.py "guestinfo.docker_network_cidr")
 TANZU_INSTALLER_PORT=$(/root/setup/getOvfProperty.py "guestinfo.tanzu_installer_port")
 TANZU_INSTALLER_SECURE_PORT=$(/root/setup/getOvfProperty.py "guestinfo.tanzu_installer_secure_port")
+ENVOY_ADMIN_INTERFACE=$(/root/setup/getOvfProperty.py "guestinfo.envoy_admin_if")
 
 
 if [ -e /root/ran_customization ]; then

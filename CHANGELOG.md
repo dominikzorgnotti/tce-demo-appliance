@@ -19,5 +19,6 @@
 - Disabled IPv6 support for docker daemon
 - Added Debug build option that includes the current Git Hash in the OVA name for cross-reference
 - Switched VM Firmware to UEFI
-- As an additional option: TCE installer UI is now fronted by a NGINX reverse proxy with SSL to add minimal transport layer security
+- As an additional option: TCE installer UI is now fronted by an ENVOY reverse proxy with SSL to add minimal transport layer security
+- Added option to enable the ENVOY admin interface via OVA property
 - IPtables is no longer disabled/stopped by default but rather using default ACCEPT policies

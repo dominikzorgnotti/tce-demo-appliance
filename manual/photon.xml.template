@@ -82,4 +82,8 @@
         <Label>Tanzu Installer Secure Port</Label>
         <Description>Customize port for the Tanzu installer web interface via SSL (Default 5556, allowed 2000-10000)</Description>
     </Property>
+    <Property ovf:key="guestinfo.envoy_admin_if" ovf:type="boolean" ovf:userConfigurable="true" ovf:value="false">
+        <Label>Envoy Admin Interface</Label>
+        <Description>Enable Envoy Admin interface on Port 10001</Description>
+    </Property>
 </ProductSection>

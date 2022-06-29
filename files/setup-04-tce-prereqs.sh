@@ -123,51 +123,131 @@ cat /etc/ssl/certs/tce-demo-tce-demo-nginx.pem /etc/ssl/certs/tce-demo-tce-demo-
 
 
 echo '\e[92mSetting up Reverse Proxy...' > /dev/console
+rpm --import 'https://rpm.dl.getenvoy.io/public/gpg.CF716AF503183491.key'
+curl -sL 'https://rpm.dl.getenvoy.io/public/config.rpm.txt?distro=el&codename=7' > /etc/yum.repos.d/tetrate-getenvoy-rpm-stable.repo
+tdnf install -y getenvoy-envoy
 
-cat > /etc/nginx/nginx.conf << "__CUSTOMIZE_PHOTON__"
-worker_processes  1;
+mkdir -p /etc/envoy
 
-events {
-    worker_connections  1024;
-}
+cat > /etc/envoy/envoy.yaml << "__CUSTOMIZE_PHOTON__"
+static_resources:
+  listeners:
+  - name: tce-installer
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: XXXX
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          request_timeout: 0s
+          request_headers_timeout: 0s
+          use_remote_address: true
+          codec_type: HTTP1
+          server_header_transformation: PASS_THROUGH
+          upgrade_configs:
+          - upgrade_type: websocket
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: app
+              domains:
+              - "*"
+              routes:
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: tanzu-installer-ui
+                  timeout: 0s
+                  idle_timeout: 0s
+                  auto_host_rewrite: true
+                  prefix_rewrite: "/"
+                  internal_redirect_policy:
+                    max_internal_redirects: 5
+                  upgrade_configs:
+                    - upgrade_type: websocket
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+          common_tls_context:
+            tls_certificates:
+            - certificate_chain: {filename: "/etc/ssl/certs/tce-demo-chain.pem"}
+              private_key: {filename: "/etc/ssl/private/tce-demo-nginx.key"}
+  clusters:
+  - name: tanzu-installer-ui
+    connect_timeout: 10s
+    lb_policy: ROUND_ROBIN
+    common_http_protocol_options:
+      idle_timeout: 30s
+    load_assignment:
+      cluster_name: tanzu-installer-ui
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: 127.0.0.1
+                port_value: YYYY
 
-http {
-    #include       mime.types;
-    #default_type  application/octet-stream;
-    #sendfile        on;
-    #keepalive_timeout  65;
-
-    server {
-      listen XXXX;
-      server_name  _;
-      ssl_certificate      /etc/ssl/certs/tce-demo-chain.pem;
-      ssl_certificate_key  /etc/ssl/private/tce-demo-nginx.key;
-      ssl_prefer_server_ciphers on;
-      location / {
-          proxy_pass XXXX;
-          proxy_bind 127.0.0.1;
-          proxy_buffering off;
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection $connection_upgrade;
-          proxy_set_header Host $host;
- #         proxy_set_header X-Real-IP	$remote_addr;
- #         proxy_set_header X-Forwarded-For	$proxy_add_x_forwarded_for;
- #         proxy_set_header X-Forwarded-Proto	$scheme;
- #         proxy_set_header X-Forwarded-Host	$host;
- #         proxy_set_header X-Forwarded-Port	$server_port;
-      }
-    }
-}
 __CUSTOMIZE_PHOTON__
 
 # Doing an extra sed call as the above here doc needs to preserve variables
-sed -i -e 's/listen XXXX;/listen '"$TANZU_INSTALLER_SECURE_PORT"' ssl;/' /etc/nginx/nginx.conf
-sed -i -e 's/proxy_pass XXXX;/proxy_pass http:\/\/127.0.0.1:'"$TANZU_INSTALLER_PORT"';/' /etc/nginx/nginx.conf
+sed -i -e 's/port_value: XXXX/port_value: '"$TANZU_INSTALLER_SECURE_PORT"'/' /etc/envoy/envoy.yaml
+sed -i -e 's/port_value: YYYY/port_value: '"$TANZU_INSTALLER_PORT"'/' /etc/envoy/envoy.yaml
+
+
+
+
+# Enable admin access
+if [ ${ENVOY_ADMIN_INTERFACE} == "True" ]; then
+cat >> /etc/envoy/envoy.yaml << "__CUSTOMIZE_PHOTON__"
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address:
+      protocol: TCP
+      address: 0.0.0.0
+      port_value: 10001
+__CUSTOMIZE_PHOTON__
+fi
+
+
+echo '\e[92mCreating Reverse Proxy service...' > /dev/console
+cat > /etc/systemd/system/envoy.service << __CUSTOMIZE_PHOTON__
+[Unit]
+Description=Systemd Service to run the envoy reserve proxy
+After=syslog.target network.target auditd.service systemd-journald.socket basic.target system.slice
+
+[Service]
+Type=idle
+Restart=on-failure
+TimeoutStartSec=1min
+RestartSec=1min
+ExecStart=/usr/bin/envoy -c /etc/envoy/envoy.yaml
+StandardOutput=append:/var/log/envoy.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target
+__CUSTOMIZE_PHOTON__
 
 echo '\e[92mActivating Reverse Proxy service...' > /dev/console
-systemctl enable nginx
-systemctl restart nginx
+systemctl daemon-reload
+systemctl enable envoy.service
+sleep 5
+systemctl start envoy.service
+
+
+
+
 
 
 # End of Script
