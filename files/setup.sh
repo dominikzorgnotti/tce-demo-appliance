@@ -68,4 +68,6 @@ else
 
 	# Ensure we don't run customization again
 	touch /root/ran_customization
+    # Clean up
+	rm -rf /root/setup
 fi
