@@ -2,45 +2,51 @@
 
 ## Summary
 
-A Virtual Appliance that pre-bundles all required dependencies for deploying Tanzu Community Edition (TCE) clusters.
+This project provides a VMware Virtual Appliance that pre-bundles all required dependencies for deploying Tanzu Community Edition (TCE) clusters.
 
-## What's Included:
-- Tanzu CLI
-- Kubectl
+### Out Of Scope
+The virtual appliance cannot provide the general requirements for the target platform (infrastructure provider).
+For example, to deploy a Management Cluster to vSphere you are required to meet the prerequisits lik an appropriate network setup wie DHCP.
 
-## Workflow (vSphere example)
-
-### What is not covered
-The appliance cannot provide the specific prerequisites in your target environment (vSphere, AWS, GCP, ...). For instance to deploy a Management Cluster to vSphere, you are still required to provide a network with DHCP server and upload the OVF images and covert them to a template.
+## Vsphere Workflow Example
 
 ### Steps
-- Read through the "Before you begin" section of the [documentation](https://tanzucommunityedition.io/docs/v0.12/vsphere/).
-- Prepare your vSphere environment as described (upload templates, create networks and accounts, ...)
-  -[Service Account requirements for vSphere](https://tanzucommunityedition.io/docs/v0.12/ref-vsphere/) or use [this gist to automate the task with govc](https://gist.github.com/dominikzorgnotti/cf2264945c9316eaa25f196d41eda308)
-  - Get the [vSphere templates](https://tanzucommunityedition.io/docs/v0.12/getting-started/) from myVMware/Customer Connect
-- From a networking (and firewall/security) perspective, please keep in mind that any reference to the "local bootstrap machine" is now meant for your TCE demo appliance
-- Deploy the appliance, either locally with fusion/workstation or on vSphere
-- Point your web browser to the installer port, default is <appliance_ip>:5555 for http and <appliance_ip>:5556 for https
+1. Read the "Before you begin" section of the [documentation](https://tanzucommunityedition.io/docs/v0.12/vsphere/)
+2. Prepare your vSphere environment as described
+  - If you want to use a service account, you can use [this gist to automate the task with govc](https://gist.github.com/dominikzorgnotti/cf2264945c9316eaa25f196d41eda308)
+3. You should keep in mind that any reference to the "local bootstrap machine" in the documentation is now meant for your virtual appliance.
+4. Deploy the appliance, either locally with fusion/workstation or on vSphere.
+5. Power on the virtual appliance and wait for the customization process to finish.
+5. After the deployment finished you can open the installer UI to the port you specified during the installation.
+  - The default is <appliance_ip>:5555 for http and <appliance_ip>:5556 for https
 
+## Good To Know
 
-## Good to know
-
-- After the initial deployment of the appliance, the installer will continue to run for one or two minutes. After the reverse proxy activiation the appliance is ready.
-- Once you select DHCP, the appliance will use the DHCP specified DNS server and ignore any values provided in the input field during deployment
-- When you deploy a succesfully deploy a cluster, the tanzu installer process with exit. If you want to deploy another cluster, you need to restart the tanzu-bootstrap.service on the appliance or reboot the appliance.
-- When you want to deploy a cluster to docker locally, you need to increase the appliance CPU and memory to the required minimums per documentation
-- Deployment target is vSphere 7 onwards, with vSphere 6 going EOGS in less than six months I set the vHW accordingly
+- The installer will continue to run for approximately two minutes after the initial deployment of the appliance. The appliance is ready after the log entry "reverse proxy activiation".
+- When you select leave the IP address empty, the appliance will default to DHCP network configuration.
+- When you use DHCP network configuration, the DNS server input field will be ignored. The appliance will use the DNS server supplied by DHCP.
+- The tanzu installer process will exit once you successfuly create a cluster.
+  - You need to restart the tanzu-bootstrap.service on the appliance or reboot the appliance if you want to deploy another cluster.
+- You need to increase the appliance CPU and memory to the [required minimums per documentation](https://tanzucommunityedition.io/docs/v0.12/docker-install-mgmt/) if you want to deploy a cluster local to the appliance with Docker.
  
 
 ## Known Issues
 
-### Blank log output
-When launching the installation process over the secure port, the log output in the Web browser is blank but the installation will continue in the background.
-Cause: The logs are shown using websockets which currently does not work when being tunneled through https  
-Workaround: You can monitor the progress from the shell (for instance via SSH) by using journalctl -fl or use the non-secure port to view the output.
+### Blank Log Output In the UI With HTTPS
+When you launch the installation process over https/the secure port, the log output in the Web browser is blank.
+Cause: The logs are shown using websockets which currently does not work when being tunneled through https. The installation continues in the background.
+Workaround: You can monitor the progress from the shell (for instance via SSH) by using journalctl -fl, follow the logs /var/log/tanzu-ce.log or use the non-secure port to view the output.
 
-### Proxy Support not tested
-Proxy Support has not been tested yet
+### HTTPS connection warning
+When you access the UI over https you will see a chrome security error and no button to proceed from here.
+Cause: The page fails to pass the HTTP Strict Transport Security (HSTS) policy.
+Workaround: You can type "thisisunsafe" in Chrome to ignore the error.
+
+### No Supported Hardware Versions Among Vmx-17
+When you attempt to deploy the aplliance an error is shown "Issues detected with selected template: <...> No supported hardware ...".
+Cause: The appliance uses a virtual hardware version that requires a version that is compatible with vSphere 7 and later.
+Workaround: None. vSphere 6 is going out of general support soon.
+
 
 ## Credits
 - William Lam for supporting me here with his framework for the TKG Demo Appliance
