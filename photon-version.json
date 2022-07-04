@@ -3,7 +3,7 @@
   "vm_name": "TCE-Demo-Appliance",
   "iso_checksum": "5af288017d0d1198dd6bd02ad40120eb",
   "iso_url": "https://packages.vmware.com/photon/4.0/Rev2/iso/photon-4.0-c001795b8.iso",
-  "numvcpus": "4",
+  "numvcpus": "2",
   "ramsize": "8096",
   "guest_username": "root",
   "guest_password": "cubeLAB01!"
