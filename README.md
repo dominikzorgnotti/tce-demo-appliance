@@ -34,7 +34,7 @@ For example, to deploy a Management Cluster to vSphere you are required to meet 
 
 ### Blank Log Output In the UI With HTTPS
 When you launch the installation process over https/the secure port, the log output in the Web browser is blank.
-Cause: The logs are shown using websockets which currently does not work when being tunneled through https. The installation continues in the background.
+Cause: The logs are shown using [Gorilla WebSocket](https://github.com/gorilla/websocket) which has at this time multiple issues when accessed with https. The installation continues in the background.
 Workaround: You can monitor the progress from the shell (for instance via SSH) by using journalctl -fl, follow the logs /var/log/tanzu-ce.log or use the non-secure port to view the output.
 
 ### HTTPS connection warning
