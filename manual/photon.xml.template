@@ -1,0 +1,89 @@
+<ProductSection ovf:required="true">
+    <Info>Demo appliance to launch the Tanzu Community Edition bootstrap installer.\n
+    The TCE Web Installer UI will be served on the port specified as Tanzu Installer Port (default: 5555).</Info>
+    <Product>Demo Appliance for Tanzu Community Edition (TCE)</Product>
+    <Vendor>Dominik Zorgnotti</Vendor>
+    <Version>{{VERSION}}</Version>
+    <ProductUrl>https://github.com/dominikzorgnotti/tce-demo-appliance</ProductUrl>
+    <VendorUrl>https://tanzucommunityedition.io</VendorUrl>
+    <Category>Networking</Category>
+    <Property ovf:key="guestinfo.hostname" ovf:type="string" ovf:qualifiers="MinLen(4),MaxLen(256)" ovf:userConfigurable="true" ovf:value="tcedemo.vmware.corp">
+        <Label>Hostname</Label>
+        <Description>Hostname of system</Description>
+    </Property>
+    <Property ovf:key="guestinfo.ipaddress" ovf:type="string" ovf:userConfigurable="true">
+        <Label>IP Address</Label>
+        <Description>IP Address of the system</Description>
+    </Property>
+    <Property ovf:key="guestinfo.netmask" ovf:qualifiers="ValueMap{&quot;32 (255.255.255.255)&quot;, &quot;31 (255.255.255.254)&quot;, &quot;30 (255.255.255.252)&quot;, &quot;29 (255.255.255.248)&quot;, &quot;28 (255.255.255.240)&quot;, &quot;27 (255.255.255.224)&quot;, &quot;26 (255.255.255.192)&quot;, &quot;25 (255.255.255.128)&quot;, &quot;24 (255.255.255.0)&quot;, &quot;23 (255.255.254.0)&quot;, &quot;22 (255.255.252.0)&quot;, &quot;21 (255.255.248.0)&quot;, &quot;20 (255.255.240.0)&quot;, &quot;19 (255.255.224.0)&quot;, &quot;18 (255.255.192.0)&quot;, &quot;17 (255.255.128.0)&quot;, &quot;16 (255.255.0.0)&quot;, &quot;15 (255.254.0.0)&quot;, &quot;14 (255.252.0.0)&quot;, &quot;13 (255.248.0.0)&quot;, &quot;12 (255.240.0.0)&quot;, &quot;11 (255.224.0.0)&quot;, &quot;10 (255.192.0.0)&quot;, &quot;9 (255.128.0.0)&quot;, &quot;8 (255.0.0.0)&quot;, &quot;7 (254.0.0.0)&quot;, &quot;6 (252.0.0.0)&quot;, &quot;5 (248.0.0.0)&quot;, &quot;4 (240.0.0.0)&quot;, &quot;3 (224.0.0.0)&quot;, &quot;2 (192.0.0.0)&quot;, &quot;1 (128.0.0.0)&quot;, &quot;0 (0.0.0.0)&quot;}" ovf:type="string" ovf:userConfigurable="true" ovf:value="24 (255.255.255.0)">
+        <Label>Network CIDR Prefix</Label>
+        <Description>Network CIDR Prefix (Leave default for DHCP)</Description>
+    </Property>
+    <Property ovf:key="guestinfo.gateway" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>Gateway</Label>
+        <Description>Gateway of the system</Description>
+    </Property>
+    <Property ovf:key="guestinfo.dns" ovf:type="string" ovf:userConfigurable="true" ovf:value="8.8.8.8">
+        <Label>DNS</Label>
+        <Description>DNS Servers (space separated, will be ignored for DHCP)</Description>
+    </Property>
+    <Property ovf:key="guestinfo.domain" ovf:type="string" ovf:userConfigurable="true" ovf:value="vmware.corp">
+        <Label>DNS Domain</Label>
+        <Description>DNS Domain</Description>
+    </Property>
+    <Property ovf:key="guestinfo.ntp" ovf:type="string" ovf:userConfigurable="true" ovf:value="pool.ntp.org">
+        <Label>NTP</Label>
+        <Description>NTP Servers (space separated)</Description>
+    </Property>
+    <Category>OS Credentials</Category>
+    <Property ovf:key="guestinfo.root_password" ovf:qualifiers="MinLen(4),MaxLen(64)" ovf:password="true" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>Root Password</Label>
+        <Description>Password to login in as root. Please use a secure password</Description>
+    </Property>
+    <Property ovf:key="guestinfo.root_ssh_key" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>SSH Key</Label>
+        <Description>SSH Public Key (Optional)</Description>
+    </Property>
+    <Category>Proxy Settings (optional)</Category>
+    <Property ovf:key="guestinfo.http_proxy" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>HTTP Proxy</Label>
+        <Description>Enter HTTP Proxy Server followed by the port and without typing "http://" before. Example: "proxy.provider.com:3128"</Description>
+    </Property>
+    <Property ovf:key="guestinfo.https_proxy" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>HTTPS Proxy</Label>
+        <Description>Enter HTTPS Proxy Server followed by the port and without typing "https://" before. Example: "proxy.provider.com:3128"</Description>
+    </Property>
+    <Property ovf:key="guestinfo.proxy_username" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>Proxy Username (optional)</Label>
+        <Description>Username for the Proxy Server</Description>
+    </Property>
+    <Property ovf:key="guestinfo.proxy_password" ovf:password="true" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>Proxy Password (optional)</Label>
+        <Description>Password for the Proxy User</Description>
+    </Property>
+    <Property ovf:key="guestinfo.no_proxy" ovf:type="string" ovf:userConfigurable="true" ovf:value="">
+        <Label>No Proxy</Label>
+        <Description>No Proxy for e.g. your internal domain suffix. Comma separated (localhost, 127.0.0.1, domain.local)</Description>
+    </Property>
+    <Category>zAdvanced</Category>
+    <Property ovf:key="guestinfo.debug" ovf:type="boolean" ovf:userConfigurable="true" ovf:value="false">
+        <Label>Debugging</Label>
+        <Description>Enable Debugging</Description>
+    </Property>
+    <Property ovf:key="guestinfo.docker_network_cidr" ovf:type="string" ovf:userConfigurable="true" ovf:value="172.17.0.1/16">
+        <Label>Docker Bridge CIDR Network</Label>
+        <Description>Customize Docker Bridge CIDR Network (Default 172.17.0.1/16)</Description>
+    </Property>
+    <Property ovf:key="guestinfo.tanzu_installer_port" ovf:type="int" ovf:qualifiers="MinValue(2000) MaxValue(10000)" ovf:userConfigurable="true" ovf:value="5555">
+        <Label>Tanzu Installer Port</Label>
+        <Description>Customize port for the Tanzu installer web interface (Default 5555, allowed 2000-10000)</Description>
+    </Property>
+    <Property ovf:key="guestinfo.tanzu_installer_secure_port" ovf:type="int" ovf:qualifiers="MinValue(2000) MaxValue(10000)" ovf:userConfigurable="true" ovf:value="5556">
+        <Label>Tanzu Installer Secure Port</Label>
+        <Description>Customize port for the Tanzu installer web interface via SSL (Default 5556, allowed 2000-10000)</Description>
+    </Property>
+    <Property ovf:key="guestinfo.envoy_admin_if" ovf:type="boolean" ovf:userConfigurable="true" ovf:value="false">
+        <Label>Envoy Admin Interface</Label>
+        <Description>Enable Envoy Admin interface on Port 10001</Description>
+    </Property>
+</ProductSection>

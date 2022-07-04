@@ -1,0 +1,9 @@
+{
+  "builder_http": "172.20.2.43",
+  "builder_vcenter": "cube-vcsa-01.lab.why-did-it.fail",
+  "builder_vcenter_username": "svc_packer@vsphere.local",
+  "builder_vcenter_datastore": "ds-cubevsan-01",
+  "builder_vcenter_password": "tceDEMO01!",
+  "builder_vcenter_cluster": "cl-cube-01",
+  "builder_vcenter_portgroup": "pg-dvs-01-vlan201-172_20_1_0_24-dhcp"
+}
