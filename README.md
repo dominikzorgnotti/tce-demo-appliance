@@ -8,7 +8,9 @@ This project provides a VMware Virtual Appliance that pre-bundles all required d
 The virtual appliance cannot provide the general requirements for the target platform (infrastructure provider).
 For example, to deploy a Management Cluster to vSphere you are required to meet the prerequisits lik an appropriate network setup wie DHCP.
 
-## Vsphere Workflow Example
+## vSphere Workflow Example
+
+I walked through a deployment example, with screenshots, on my [blog](https://why-did-it.fail/blog/2022-03-tce-demo-appliance/).
 
 ### Steps
 1. Read the "Before you begin" section of the [documentation](https://tanzucommunityedition.io/docs/v0.12/vsphere/)
