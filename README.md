@@ -8,6 +8,10 @@ This project provides a VMware Virtual Appliance that pre-bundles all required d
 The virtual appliance cannot provide the general requirements for the target platform (infrastructure provider).
 For example, to deploy a Management Cluster to vSphere you are required to meet the prerequisits lik an appropriate network setup wie DHCP.
 
+### Download
+
+The latest release is [v0.12.1](https://github.com/dominikzorgnotti/tce-demo-appliance/releases/tag/v0.12.1)
+
 ## vSphere Workflow Example
 
 I walked through a deployment example, with screenshots, on my [blog](https://why-did-it.fail/blog/2022-03-tce-demo-appliance/).
