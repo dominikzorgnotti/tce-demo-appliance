@@ -12,6 +12,10 @@ For example, to deploy a Management Cluster to vSphere you are required to meet 
 
 The latest release is [v0.12.1](https://github.com/dominikzorgnotti/tce-demo-appliance/releases/tag/v0.12.1)
 
+### Alternatives
+
+After publishing this project I learned about the [OVA Appliance for Tanzu Community Edition](https://github.com/guarddog-dev/VMware_Photon_OVA) from [Russell Hamker](https://twitter.com/butch7903). It’s another amazing project, make sure to give it a spin as well.
+
 ## vSphere Workflow Example
 
 I walked through a deployment example, with screenshots, on my [blog](https://why-did-it.fail/blog/2022-03-tce-demo-appliance/).
